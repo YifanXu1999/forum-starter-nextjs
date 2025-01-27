@@ -1,6 +1,10 @@
+"server only"
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { HeroUIProvider } from "@heroui/system";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
+import Header from "@/components/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <HeroUIProvider>
+          <SessionProvider>
+            <Header />
+            {children}
+          </SessionProvider>
+        </HeroUIProvider>
       </body>
     </html>
   );
