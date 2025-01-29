@@ -5,6 +5,7 @@ import { prisma } from "@/prisma";
 import { Post } from "@prisma/client";
 import { z } from "zod";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 interface CreatePostFormState {
   errors: {
@@ -72,6 +73,8 @@ export async function createPost(prevState: CreatePostFormState, formData: FormD
         }
       }
     }
+    revalidatePath(`/topics/${name}`)
+    revalidatePath(`/`)
 
     redirect(`/topics/${name}/posts/${post.id}`)
 }

@@ -5,7 +5,7 @@ import { prisma } from "@/prisma";
 import { Topic } from "@prisma/client";
 import { z } from "zod";
 import { redirect } from "next/navigation";
-
+import { revalidatePath } from "next/cache";
 interface CreateTopicFormState {
   errors: {
     name?: string[]
@@ -55,6 +55,6 @@ export async function createTopic(prevState: CreateTopicFormState, formData: For
         }
       }
     }
-
+    revalidatePath(`/topics/${topic.name}`)
     redirect(`/topics/${topic.name}`)
 }
