@@ -2,6 +2,7 @@
 import { Input } from "@heroui/react";
 import * as actions from "@/actions";
 import { useSearchParams } from "next/navigation";
+import { startTransition, useTransition } from "react";
 export const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
@@ -31,17 +32,27 @@ export const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
+
+
 export default function SearchInput() {
   const searchParams = useSearchParams()
   const content = searchParams.get('searchContent')!
+  const [isPending, startTransition] = useTransition()
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    startTransition(() => {
+      actions.search(new FormData(e.target as HTMLFormElement))
+    })
+  }
   return (
     <div className="w-[200px]  mt-2 rounded-2xl flex justify-center items-center bg-gradient-to-tr from-purple-200 to-white text-white shadow-lg">
-    <form action={actions.search}>
+    <form onSubmit={handleSubmit}>
 
     <Input
       name="searchContent"
       defaultValue={content}
       isClearable
+      isDisabled={isPending}
       classNames={{
         input: [
           "bg-transparent",

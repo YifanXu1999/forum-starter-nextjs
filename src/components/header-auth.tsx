@@ -8,7 +8,14 @@ import { signInAction } from "@/actions/sign-in";
 import { useSession } from "next-auth/react";
 
 export default function HeaderAuth() {
+  // const {data: session, status} = useSession({
+  //   required: false,
+  //   onUnauthenticated() {
+  //     return null;
+  //   },
+  // })
   const {data: session, status} = useSession()
+  
   let authContent: React.ReactNode;
   if (status === "loading") {
     authContent = (
