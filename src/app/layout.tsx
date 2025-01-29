@@ -5,7 +5,7 @@ import { HeroUIProvider } from "@heroui/system";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import Header from "@/components/header";
-
+import { Suspense } from "react";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,14 +27,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <HeroUIProvider>
           <SessionProvider>
-            <Header />
+          <Suspense fallback={<div>Loading...</div>}>
+          <Header />
+          <div className="max-w-[1024px] mx-auto mt-5 px-6">
             {children}
+          </div>
+          </Suspense>
           </SessionProvider>
         </HeroUIProvider>
       </body>

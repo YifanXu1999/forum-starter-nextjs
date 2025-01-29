@@ -1,6 +1,9 @@
 "use client"
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Input} from "@heroui/react";
+
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
 import HeaderAuth from "@/components/header-auth";
+import Link from "next/link"
+import SearchInput from "@/components/search-input";
 export const AcmeLogo = () => {
   return (
     <svg fill="none" height="36" viewBox="0 0 32 32" width="36">
@@ -14,19 +17,21 @@ export const AcmeLogo = () => {
   );
 };
 
-export default  function Header() {
 
 
+export default function Header() {
   return (
-      <Navbar shouldHideOnScroll className="pb-2 border-b-2 border-gray-200">
-        <div className="flex justify-between items-center w-screen">
+    <Navbar shouldHideOnScroll className="pb-2 border-b-2 border-gray-200">
+      <div className="flex justify-between items-center w-full">
         <NavbarBrand>
-          <AcmeLogo />
-          <p className="font-bold text-inherit">ACME</p>
+          <Link href="/" className="flex items-center ml-[-6px]">
+            <AcmeLogo />
+            <p className="font-bold text-inherit">Forum</p>
+          </Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <NavbarItem>
-            <Input placeholder="Search" className="mt-2" />
+            <SearchInput />
           </NavbarItem>
         </NavbarContent>
         <NavbarContent justify="end">
