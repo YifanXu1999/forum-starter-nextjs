@@ -6,6 +6,7 @@ import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import Header from "@/components/header";
 import { Suspense } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <SpeedInsights />
         <HeroUIProvider>
           <SessionProvider>
           <Suspense fallback={<div>Loading...</div>}>
@@ -41,6 +43,7 @@ export default function RootLayout({
           </Suspense>
           </SessionProvider>
         </HeroUIProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
